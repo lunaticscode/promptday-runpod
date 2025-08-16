@@ -35,33 +35,7 @@ def _load_llm_once():
 
 
 def get_prompt(user_input):
-    #     prompt = f"""
-    # You are an assistant that extracts structured event information from emails.
-    # Respond **only** with a JSON object as shown below — no preambles, no labels like "Output" or "Rules", no code fences.
-    #
-    # Expected JSON structure:
-    # {{
-    #   "title": string,            // the main event title
-    #   "location": string,         // the venue or address mentioned
-    #   "organizer": string,        // the hosting or inviting entity
-    #   "tags": [string, ...],      // a list of keyword strings (lowercase), without extra quotes
-    #   "dates": [
-    #     {{
-    #       "event": string,        // date/time of the main event in ISO 8601 format if possible (e.g. "2025-09-14T10:00:00")
-    #       "deadline": string|null,// deadline for submissions/registrations in ISO 8601, or null if none
-    #       "sub_event": [string,...] // titles or short descriptions of sub-events as plain strings; leave empty if none
-    #     }}
-    #     // repeat for each distinct date/time expression
-    #   ]
-    # }}
-    #
-    # - Do not include any other keys.
-    # - If a field is missing, use null or an empty list.
-    # - Do not nest objects inside "sub_event"; only list the names of sub-events.
-    #
-    # Email:
-    # {user_input}
-    # """
+
     SYSTEM_PROMPT = (
     "You are a professional scheduling assistant. "
     "Given an email about an event or meeting, extract structured fields as JSON. "
@@ -115,7 +89,6 @@ def handler(event):
     except:
         print('(!) Invalid json format')
         pass
-
     return result
 
 if __name__ == '__main__':
